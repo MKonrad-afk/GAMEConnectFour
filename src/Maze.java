@@ -1,18 +1,40 @@
 //should be converted to C++
 public class Maze {
     private int[][] maze;
-    private boolean[][] visited;
+    // maze states:
+    //0-> free
+    //1-> 1st player
+    //2-> 2nd player
+
     public Maze() {
-        maze = new int[6][7];
+       maze = new int[6][7];
     }
-    public boolean activeMaze(int x, int y) {
-        if (visited[x][y])
-            return true;
+    public void putBall (int player, int row, int column){
+        while(maze[column-1][row-1]==0 && !(maze.length==row)){
+            row++;
+        }
+        maze[row-1][column-1] = player;
+        if(checkIfWinEachRow())
+            System.out.println("WIN");
+    }
+    public boolean checkIfWinEachRow(){
+        for (int i =0;i< maze.length;i++){
+            for (int j = 0;j<maze[i].length-4;j++){
+                if(maze[i][j]==maze[i][j++]&&
+                        maze[i][j++]==maze[i][j+2]&&
+                            maze[i][j+2]==maze[i][j+3]&&
+                                maze[i][j+3]==maze[i][j+4]){
+                    return true;
+                }
+            }
+        }
         return false;
     }
+
+
     @Override
     public String toString() {
-        String mazeString = "";
+        String mazeString = "-------\n";
         for (int i = 0; i < maze.length; i++) {
             for (int j = 0; j < maze[i].length; j++) {
                 mazeString += maze[i][j];
