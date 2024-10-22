@@ -34,6 +34,12 @@ public class Window extends JFrame {
                 xInit= 100;
                 yInit+=100;
             }
+
+
+            g.setColor(Color.black);
+            Font font = new Font(Font.MONOSPACED, 10,40);
+            setFont(font);
+            g.drawString("Connect FOUR", 300,80);
         }
     }
 
