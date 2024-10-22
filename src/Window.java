@@ -1,7 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 
 // The main frame
 public class Window extends JFrame {
@@ -9,7 +11,6 @@ public class Window extends JFrame {
         setSize(900, 900);
         setTitle("Connect Four by MK");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBackground(Color.LIGHT_GRAY);
         add(new Board());
         setResizable(false);
         setVisible(true);
@@ -22,6 +23,7 @@ public class Window extends JFrame {
         private final int ovalSize = 80;
         private final int spacing = 20;
         private Color currentColor = Color.yellow;
+        private Image backgroundImage;
 
         public Board() {
             boardColors = new Color[rows][cols];
@@ -68,13 +70,12 @@ public class Window extends JFrame {
             }
         }
 
+
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-
             g.setColor(Color.BLUE);
             g.fillRect(70, 120, 760, 660);
-
             // Ovals
             int xInit = 100;
             int yInit = 150;
