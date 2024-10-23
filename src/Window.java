@@ -3,11 +3,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
 
 // The main frame
 public class Window extends JFrame {
-    public Window() {
+    public Window() throws IOException {
         setSize(900, 900);
         setTitle("Connect Four by MK");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,7 +27,7 @@ public class Window extends JFrame {
         private int currentColor = 1;
         private Image backgroundImage;
 
-        public Board() {
+        public Board() throws IOException {
             boardGrid =  new Maze();
 
             addMouseListener(new MouseAdapter() {
@@ -35,7 +37,15 @@ public class Window extends JFrame {
                     int y = e.getY();
                     handleClick(x, y);
                 }
+
             });
+
+            try {
+                backgroundImage = ImageIO.read(new File("src/BACKGROUND.png"));
+            }
+            catch(IOException e){
+                e.printStackTrace();
+            }
         }
 
         private void handleClick(int x, int y) {
@@ -68,16 +78,21 @@ public class Window extends JFrame {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            g.setColor(Color.BLUE);
-            g.fillRect(70, 120, 760, 660);
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, -5, 0, this.getWidth(), this.getHeight(), this);
+            }
+
+
             // Ovals
             int xInit = 100;
             int yInit = 150;
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
                     // Settings colors of ovals
-                    g.setColor(translateColor(boardGrid.getMaze()[i][j]));
-                    g.fillOval(xInit + j * (ovalSize + spacing), yInit + i * (ovalSize + spacing), ovalSize, ovalSize);
+                    if (translateColor(boardGrid.getMaze()[i][j]) != Color.white) {
+                        g.setColor(translateColor(boardGrid.getMaze()[i][j]));
+                        g.fillOval(xInit + j * (ovalSize + spacing), yInit + i * (ovalSize + spacing), ovalSize, ovalSize);
+                    }
                 }
             }
             if (boardGrid.checkIfWIN()){
@@ -90,14 +105,10 @@ public class Window extends JFrame {
             }
 
 
-            g.setColor(Color.BLACK);
-            setFont(new Font(Font.MONOSPACED, Font.BOLD, 35));
-            g.drawString("Connect FOUR", 300, 80);
-            g.drawString("It's turn -> ",40,830);
             g.setColor(translateColor(currentColor));
-            g.fillOval(340,790,50,50);
+            g.fillOval(300,790,50,50);
             g.setColor(Color.BLACK);
-            g.drawOval(340,790,50,50);
+            g.drawOval(300,790,50,50);
         }
         public Color translateColor(int x){
             if(x==0){
