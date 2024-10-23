@@ -10,12 +10,14 @@ public class Maze {
        maze = new int[6][7];
     }
     public void putBall (int player, int row, int column){
-        while(maze[column-1][row-1]==0 && !(maze.length==row)){
+        while(maze[row][column]==0 && !(maze.length-1==row)){
             row++;
         }
-        maze[row-1][column-1] = player;
-        if(checkIfWinEachRow())
-            System.out.println("WIN");
+        maze[row][column] = player;
+    }
+
+    public int[][] getMaze(){
+        return maze;
     }
     public boolean checkIfWinEachRow(){
         for (int i =0;i< maze.length;i++){
