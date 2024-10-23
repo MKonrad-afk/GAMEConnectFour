@@ -10,7 +10,7 @@ public class Maze {
        maze = new int[6][7];
     }
     public void putBall (int player, int row, int column){
-        while(maze[row][column]==0 && !(maze.length-1==row)){
+        while(row < maze.length-1 && maze[row+1][column]==0){
             row++;
         }
         maze[row][column] = player;
@@ -19,20 +19,6 @@ public class Maze {
     public int[][] getMaze(){
         return maze;
     }
-    public boolean checkIfWinEachRow(){
-        for (int i =0;i< maze.length;i++){
-            for (int j = 0;j<maze[i].length-4;j++){
-                if(maze[i][j]==maze[i][j++]&&
-                        maze[i][j++]==maze[i][j+2]&&
-                            maze[i][j+2]==maze[i][j+3]&&
-                                maze[i][j+3]==maze[i][j+4]){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
 
     @Override
     public String toString() {
@@ -44,5 +30,67 @@ public class Maze {
             mazeString += "\n";
         }
         return mazeString;
+    }
+
+
+
+    //Methods to check if player win
+    private boolean checkHorizonral(){
+        for(int row =0; row< maze.length; row++ ){
+            for(int column = 0; column < maze[row].length-3;column++){
+                int value = maze[row][column];
+                if (value !=0 && value == maze[row][column+1]
+                                && value == maze[row][column+2]
+                                    && value == maze[row][column+3]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean checkVertival(){
+        for (int column =0; column< maze[0].length;column++){
+            for (int row =0; row< maze.length-3;row++){
+                int value = maze[row][column];
+                if (value!=0 && value== maze[row+1][column]
+                                && value == maze[row+2][column]
+                                    && value == maze[row+3][column]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean checkDiagonal(){
+        //diagonal that go down-right
+        for (int row =0; row< maze.length-3;row++){
+            for (int column =0; column< maze[row].length-3;column++){
+                int value = maze[row][column];
+                if (value!=0 && value == maze[row+1][column+1]
+                                && value == maze[row+2][column+2]
+                                    && value == maze[row+3][column+3]){
+                    return true;
+                }
+            }
+        }
+
+        //diagonal that go down-left
+        for (int row =0 ; row < maze.length-3;row++){
+            for (int column = 3; column< maze[row].length;column++){
+                int value = maze[row][column];
+                if (value!=0 && value == maze[row+1][column-1]
+                                && value == maze[row+2][column-2]
+                                    && value == maze[row+3][column-3]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIfWIN(){
+        return checkHorizonral() || checkDiagonal() || checkVertival();
     }
 }

@@ -80,6 +80,15 @@ public class Window extends JFrame {
                     g.fillOval(xInit + j * (ovalSize + spacing), yInit + i * (ovalSize + spacing), ovalSize, ovalSize);
                 }
             }
+            if (boardGrid.checkIfWIN()){
+                g.setColor(translateColor(currentColor));
+                g.fillRect(0,300, 900,200);
+                g.setColor(Color.WHITE);
+                setFont(new Font(Font.MONOSPACED, Font.BOLD, 100));
+                String text = "You won";
+                g.drawString(text, 350,400);
+            }
+
 
             g.setColor(Color.BLACK);
             setFont(new Font(Font.MONOSPACED, Font.BOLD, 35));
