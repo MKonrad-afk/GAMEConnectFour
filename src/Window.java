@@ -96,12 +96,17 @@ public class Window extends JFrame {
                 }
             }
             if (boardGrid.checkIfWIN()){
-                g.setColor(translateColor(currentColor));
+                if (currentColor == 1) {
+                    g.setColor(translateColor(2));
+                }
+                else {
+                    g.setColor(translateColor(1));
+                }
                 g.fillRect(0,300, 900,200);
                 g.setColor(Color.WHITE);
                 setFont(new Font(Font.MONOSPACED, Font.BOLD, 100));
                 String text = "You won";
-                g.drawString(text, 350,400);
+                g.drawString(text, 200,440);
             }
 
 
