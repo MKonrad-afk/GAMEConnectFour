@@ -19,8 +19,7 @@ public class Window extends JFrame {
     }
 
     private class Board extends JPanel {
-        private final int rows = 6;
-        private final int cols = 7;
+
         private Maze  boardGrid;
         private final int ovalSize = 80;
         private final int spacing = 20;
@@ -53,8 +52,8 @@ public class Window extends JFrame {
             int yInit = 150;
 
             // Iterate through the grid of ovals to find the clicked oval
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < cols; j++) {
+            for (int i = 0; i < boardGrid.getMaze().length; i++) {
+                for (int j = 0; j < boardGrid.getMaze()[i].length; j++) {
                     int ovalX = xInit + j * (ovalSize + spacing);
                     int ovalY = yInit + i * (ovalSize + spacing);
 
@@ -86,8 +85,8 @@ public class Window extends JFrame {
             // Ovals
             int xInit = 100;
             int yInit = 150;
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < cols; j++) {
+            for (int i = 0; i < boardGrid.getMaze().length; i++) {
+                for (int j = 0; j < boardGrid.getMaze()[i].length; j++) {
                     // Settings colors of ovals
                     if (translateColor(boardGrid.getMaze()[i][j]) != Color.white) {
                         g.setColor(translateColor(boardGrid.getMaze()[i][j]));
