@@ -22,7 +22,6 @@ public class Window extends JFrame {
         private Image backgroundImage;
 
         public Board() throws IOException {
-            createMaze();
 
             addMouseListener(new MouseAdapter() {
                 @Override
@@ -88,7 +87,6 @@ public class Window extends JFrame {
 
     public native void handleClick(int x, int y);
 
-    public native void createMaze();
 
     public native List<Integer> findWhereToPaintOval();
 

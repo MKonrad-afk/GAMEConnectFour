@@ -85,14 +85,6 @@ JNIEXPORT void JNICALL Java_Window_handleClick
 
 /*
  * Class:     Window
- * Method:    createMaze
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_Window_createMaze
-  (JNIEnv *, jobject);
-
-/*
- * Class:     Window
  * Method:    findWhereToPaintOval
  * Signature: ()Ljava/util/List;
  */
