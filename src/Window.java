@@ -5,7 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-
+import java.util.List;
 
 // The main frame
 public class Window extends JFrame {
@@ -19,15 +19,10 @@ public class Window extends JFrame {
     }
 
     private class Board extends JPanel {
-
-        private Maze  boardGrid;
-        private final int ovalSize = 80;
-        private final int spacing = 20;
-        private int currentColor = 1;
         private Image backgroundImage;
 
         public Board() throws IOException {
-            boardGrid =  new Maze();
+            createMaze();
 
             addMouseListener(new MouseAdapter() {
                 @Override
@@ -35,6 +30,7 @@ public class Window extends JFrame {
                     int x = e.getX();
                     int y = e.getY();
                     handleClick(x, y);
+                    repaint();
                 }
 
             });
@@ -47,33 +43,6 @@ public class Window extends JFrame {
             }
         }
 
-        private void handleClick(int x, int y) {
-            int xInit = 100;
-            int yInit = 150;
-
-            // Iterate through the grid of ovals to find the clicked oval
-            for (int i = 0; i < boardGrid.getMaze().length; i++) {
-                for (int j = 0; j < boardGrid.getMaze()[i].length; j++) {
-                    int ovalX = xInit + j * (ovalSize + spacing);
-                    int ovalY = yInit + i * (ovalSize + spacing);
-
-                    // click was inside the oval
-                    if (x >= ovalX && x <= ovalX + ovalSize && y >= ovalY && y <= ovalY + ovalSize) {
-                            boardGrid.putBall(currentColor,i,j);
-                            if(currentColor==1)
-                                {currentColor=2;}
-                            else
-                                {currentColor=1;}
-
-
-                        repaint();
-                        return;
-                    }
-                }
-            }
-        }
-
-
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -83,33 +52,21 @@ public class Window extends JFrame {
 
 
             // Ovals
-            int xInit = 100;
-            int yInit = 150;
-            for (int i = 0; i < boardGrid.getMaze().length; i++) {
-                for (int j = 0; j < boardGrid.getMaze()[i].length; j++) {
-                    // Settings colors of ovals
-                    if (translateColor(boardGrid.getMaze()[i][j]) != Color.white) {
-                        g.setColor(translateColor(boardGrid.getMaze()[i][j]));
-                        g.fillOval(xInit + j * (ovalSize + spacing), yInit + i * (ovalSize + spacing), ovalSize, ovalSize);
-                    }
-                }
-            }
-            if (boardGrid.checkIfWIN()){
-                if (currentColor == 1) {
-                    g.setColor(translateColor(2));
-                }
-                else {
-                    g.setColor(translateColor(1));
-                }
-                g.fillRect(0,300, 900,200);
+            g.setColor(translateColor(findWhereToPaintOval().get(0)));
+            g.fillOval(findWhereToPaintOval().get(1),findWhereToPaintOval().get(2),getOvalSize(),getOvalSize());
+
+
+            //checking winning
+            if (checkIfWIN()) {
+                g.fillRect(0, 300, 900, 200);
                 g.setColor(Color.WHITE);
                 setFont(new Font(Font.MONOSPACED, Font.BOLD, 100));
                 String text = "You won";
-                g.drawString(text, 200,440);
+                g.drawString(text, 200, 440);
             }
 
 
-            g.setColor(translateColor(currentColor));
+            g.setColor(translateColor(getCurrentColor()));
             g.fillOval(300,790,50,50);
             g.setColor(Color.BLACK);
             g.drawOval(300,790,50,50);
@@ -127,5 +84,17 @@ public class Window extends JFrame {
         }
     }
 
-    public native void myNative();
+
+
+    public native void handleClick(int x, int y);
+
+    public native void createMaze();
+
+    public native List<Integer> findWhereToPaintOval();
+
+    public native boolean checkIfWIN();
+
+    public native int getCurrentColor();
+    public native int getOvalSize();
+
 }

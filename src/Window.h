@@ -77,10 +77,50 @@ extern "C" {
 #define Window_serialVersionUID 2673458971256075116i64
 /*
  * Class:     Window
- * Method:    myNative
+ * Method:    handleClick
+ * Signature: (II)V
+ */
+JNIEXPORT void JNICALL Java_Window_handleClick
+  (JNIEnv *, jobject, jint, jint);
+
+/*
+ * Class:     Window
+ * Method:    createMaze
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_Window_myNative
+JNIEXPORT void JNICALL Java_Window_createMaze
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     Window
+ * Method:    findWhereToPaintOval
+ * Signature: ()Ljava/util/List;
+ */
+JNIEXPORT jobject JNICALL Java_Window_findWhereToPaintOval
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     Window
+ * Method:    checkIfWIN
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_Window_checkIfWIN
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     Window
+ * Method:    getCurrentColor
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_Window_getCurrentColor
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     Window
+ * Method:    getOvalSize
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_Window_getOvalSize
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus
