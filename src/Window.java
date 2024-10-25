@@ -126,4 +126,6 @@ public class Window extends JFrame {
             return Color.BLUE;
         }
     }
+
+    public native void myNative();
 }
