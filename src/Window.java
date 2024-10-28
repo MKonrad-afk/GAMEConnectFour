@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 // The main frame
 public class Window extends JFrame {
@@ -51,11 +50,9 @@ public class Window extends JFrame {
 
 
             // Ovals
-            g.setColor(translateColor(findWhereToPaintOval().get(0)));
-            g.fillOval(findWhereToPaintOval().get(1),findWhereToPaintOval().get(2),getOvalSize(),getOvalSize());
+                findWhereToPaintOval(g);
 
-
-            //checking winning
+//            checking winning
             if (checkIfWIN()) {
                 g.fillRect(0, 300, 900, 200);
                 g.setColor(Color.WHITE);
@@ -87,12 +84,11 @@ public class Window extends JFrame {
 
     public native void handleClick(int x, int y);
 
-
-    public native List<Integer> findWhereToPaintOval();
+    public native void findWhereToPaintOval(Graphics g);
 
     public native boolean checkIfWIN();
 
     public native int getCurrentColor();
-    public native int getOvalSize();
+
 
 }

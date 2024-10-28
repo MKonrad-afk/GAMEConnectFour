@@ -86,10 +86,10 @@ JNIEXPORT void JNICALL Java_Window_handleClick
 /*
  * Class:     Window
  * Method:    findWhereToPaintOval
- * Signature: ()Ljava/util/List;
+ * Signature: (Ljava/awt/Graphics;)V
  */
-JNIEXPORT jobject JNICALL Java_Window_findWhereToPaintOval
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_Window_findWhereToPaintOval
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     Window
@@ -105,14 +105,6 @@ JNIEXPORT jboolean JNICALL Java_Window_checkIfWIN
  * Signature: ()I
  */
 JNIEXPORT jint JNICALL Java_Window_getCurrentColor
-  (JNIEnv *, jobject);
-
-/*
- * Class:     Window
- * Method:    getOvalSize
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_Window_getOvalSize
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus
