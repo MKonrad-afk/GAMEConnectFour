@@ -21,6 +21,7 @@ public class Window extends JFrame {
 
     private class Board extends JPanel {
         private Image backgroundImage;
+        private boolean resetting = false;
 
         public Board() throws IOException {
             setFocusable(true);
@@ -44,7 +45,6 @@ public class Window extends JFrame {
 
                 @Override
                 public void keyPressed(KeyEvent e) {
-                    System.out.println(e.getKeyCode());
                 if (e.getKeyCode() == KeyEvent.VK_LEFT){
                     changeTheColumn(0);
                     repaint();
@@ -86,21 +86,50 @@ public class Window extends JFrame {
             // Highlight which column
                 findWhereToPaintColumnMark(g);
 
-            // checking winning
-            if (checkIfWIN()) {
-                g.fillRect(0, 300, 900, 200);
-                g.setColor(Color.WHITE);
-                setFont(new Font(Font.MONOSPACED, Font.BOLD, 100));
-                String text = "You won";
-                g.drawString(text, 200, 440);
-            }
-
-
+            //showing current player
             g.setColor(translateColor(getCurrentColor()));
             g.fillOval(300,790,50,50);
             g.setColor(Color.BLACK);
             g.drawOval(300,790,50,50);
+
+            // checking winning
+            if (checkIfWIN() && !resetting) {
+                resetting = true;
+                showRetryDialog();
+            }
         }
+
+
+
+        private void showRetryDialog() {
+            String winColor;
+            if (getCurrentColor()==2){
+                winColor = "Yellow";
+            }
+            else {
+                winColor="Red";
+            }
+            int choice = JOptionPane.showOptionDialog(
+                    this,
+                    "Congratulations! \n " +winColor+" won \nWould you like to play again?",
+                    "Game Over",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    new String[]{"Retry", "Exit"},
+                    "Retry"
+            );
+
+            if (choice == JOptionPane.YES_OPTION) {
+                clearBoard();
+                resetting = false;
+            } else {
+                System.exit(0);
+            }
+            repaint();
+        }
+
+
         public Color translateColor(int x){
             if(x==0){
                 return Color.WHITE;
@@ -128,4 +157,6 @@ public class Window extends JFrame {
 
     public native void findWhereToPaintColumnMark(Graphics g);
     public native void changeTheColumn(int direction);
+
+    public native void clearBoard();
 }

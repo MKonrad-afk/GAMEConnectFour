@@ -131,6 +131,14 @@ JNIEXPORT void JNICALL Java_Window_findWhereToPaintColumnMark
 JNIEXPORT void JNICALL Java_Window_changeTheColumn
   (JNIEnv *, jobject, jint);
 
+/*
+ * Class:     Window
+ * Method:    clearBoard
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_Window_clearBoard
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif
