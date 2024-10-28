@@ -1,6 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -21,7 +23,8 @@ public class Window extends JFrame {
         private Image backgroundImage;
 
         public Board() throws IOException {
-
+            setFocusable(true);
+            requestFocusInWindow();
             addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -31,6 +34,35 @@ public class Window extends JFrame {
                     repaint();
                 }
 
+            });
+
+            addKeyListener(new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    System.out.println(e.getKeyCode());
+                if (e.getKeyCode() == KeyEvent.VK_LEFT){
+                    changeTheColumn(0);
+                    repaint();
+                }
+                else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    changeTheColumn(1);
+                    repaint();
+                }
+                else if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    addAfterAcepting();
+                    repaint();
+                }
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+
+                }
             });
 
             try {
@@ -47,12 +79,14 @@ public class Window extends JFrame {
             if (backgroundImage != null) {
                 g.drawImage(backgroundImage, -5, 0, this.getWidth(), this.getHeight(), this);
             }
-
-
             // Ovals
                 findWhereToPaintOval(g);
 
-//            checking winning
+            g.setColor(Color.white);
+            // Highlight which column
+                findWhereToPaintColumnMark(g);
+
+            // checking winning
             if (checkIfWIN()) {
                 g.fillRect(0, 300, 900, 200);
                 g.setColor(Color.WHITE);
@@ -86,9 +120,12 @@ public class Window extends JFrame {
 
     public native void findWhereToPaintOval(Graphics g);
 
+    public native void addAfterAcepting();
+
     public native boolean checkIfWIN();
 
     public native int getCurrentColor();
 
-
+    public native void findWhereToPaintColumnMark(Graphics g);
+    public native void changeTheColumn(int direction);
 }

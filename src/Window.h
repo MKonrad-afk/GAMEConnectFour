@@ -93,6 +93,14 @@ JNIEXPORT void JNICALL Java_Window_findWhereToPaintOval
 
 /*
  * Class:     Window
+ * Method:    addAfterAcepting
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_Window_addAfterAcepting
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     Window
  * Method:    checkIfWIN
  * Signature: ()Z
  */
@@ -106,6 +114,22 @@ JNIEXPORT jboolean JNICALL Java_Window_checkIfWIN
  */
 JNIEXPORT jint JNICALL Java_Window_getCurrentColor
   (JNIEnv *, jobject);
+
+/*
+ * Class:     Window
+ * Method:    findWhereToPaintColumnMark
+ * Signature: (Ljava/awt/Graphics;)V
+ */
+JNIEXPORT void JNICALL Java_Window_findWhereToPaintColumnMark
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     Window
+ * Method:    changeTheColumn
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_Window_changeTheColumn
+  (JNIEnv *, jobject, jint);
 
 #ifdef __cplusplus
 }
