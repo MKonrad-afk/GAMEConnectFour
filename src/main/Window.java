@@ -23,7 +23,6 @@ public class Window extends JFrame {
 
     private class Board extends JPanel {
         private Image backgroundImage;
-        private boolean resetting = false;
 
         public Board() throws IOException {
             setFocusable(true);
@@ -35,6 +34,10 @@ public class Window extends JFrame {
                     int y = e.getY();
                     handleClick(x, y);
                     repaint();
+                    // checking winning
+                    if (checkIfWIN()) {
+                        showRetryDialog();
+                    }
                 }
 
             });
@@ -58,6 +61,10 @@ public class Window extends JFrame {
                 else if(e.getKeyCode() == KeyEvent.VK_ENTER){
                     addAfterAcepting();
                     repaint();
+                    // checking winning
+                    if (checkIfWIN()) {
+                        showRetryDialog();
+                    }
                 }
                 }
 
@@ -94,11 +101,7 @@ public class Window extends JFrame {
             g.setColor(Color.BLACK);
             g.drawOval(300,790,50,50);
 
-            // checking winning
-            if (checkIfWIN() && !resetting) {
-                resetting = true;
-                showRetryDialog();
-            }
+
         }
 
 
@@ -124,11 +127,10 @@ public class Window extends JFrame {
 
             if (choice == JOptionPane.YES_OPTION) {
                 clearBoard();
-                resetting = false;
+                repaint();
             } else {
                 System.exit(0);
             }
-//            repaint();
         }
 
 
