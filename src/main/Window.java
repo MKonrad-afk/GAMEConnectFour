@@ -68,7 +68,7 @@ public class Window extends JFrame {
             });
 
             try {
-                backgroundImage = ImageIO.read(new File("src/BACKGROUND.png"));
+                backgroundImage = ImageIO.read(new File("src/main/BACKGROUND.png"));
             }
             catch(IOException e){
                 e.printStackTrace();
