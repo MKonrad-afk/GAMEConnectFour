@@ -128,7 +128,7 @@ public class Window extends JFrame {
             } else {
                 System.exit(0);
             }
-            repaint();
+//            repaint();
         }
 
 
@@ -161,4 +161,6 @@ public class Window extends JFrame {
     public native void changeTheColumn(int direction);
 
     public native void clearBoard();
+
+    public native String getBoardInTheStringRepresentation();
 }

@@ -139,6 +139,14 @@ JNIEXPORT void JNICALL Java_main_Window_changeTheColumn
 JNIEXPORT void JNICALL Java_main_Window_clearBoard
   (JNIEnv *, jobject);
 
+/*
+ * Class:     main_Window
+ * Method:    getBoardInTheStringRepresentation
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_main_Window_getBoardInTheStringRepresentation
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif
