@@ -1,3 +1,4 @@
+package main;
 import java.io.IOException;
 
 public class Main {
@@ -12,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            Window win = new Window();
+            Window window = new Window();
         } catch (IOException e) {
             System.err.println("IOException encountered: " + e.getMessage());
             e.printStackTrace();
