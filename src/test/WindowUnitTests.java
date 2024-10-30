@@ -2,10 +2,7 @@ package test;
 
 import main.Window;
 import org.junit.jupiter.api.*;
-
-import java.awt.*;
 import java.io.IOException;
-
 import static org.junit.Assert.*;
 
 public class WindowUnitTests {
@@ -30,6 +27,31 @@ public class WindowUnitTests {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void correctInitializationWhenHandlingMouseClick(){
+        win.clearBoard();
+        win.handleClick(100,150);
+        assertEquals("Correct Initialization when handling mouse click failed",
+                "0000000" +
+                        "0000000"+
+                        "0000000"+
+                        "0000000"+
+                        "0000000"+
+                        "1000000", win.getBoardInTheStringRepresentation());
+    }
+    @Test void correctInitializationWhenHandlingKeyboardClick(){
+        win.clearBoard();
+        win.addAfterAcepting();
+        assertEquals("Correct Initialization when handling keyboard click failed",
+                "0000000" +
+                        "0000000"+
+                        "0000000"+
+                        "0000000"+
+                        "0000000"+
+                        "1000000", win.getBoardInTheStringRepresentation());
+    }
+
 
     @Test
     public void horizonralWinCondition0Row(){
